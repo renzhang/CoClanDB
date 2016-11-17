@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>开战!</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+  <h2>开始部落战？</h2>
+
+  <p>此战信息:</p>
+  <form method="post" action="battlemap.php">
+    <label for="opponent_id">对手部落ID:</label>
+    <input type="text" id="opponent_id" name="opponent_id" /><br />
+    <label for="battle_date">开战日期:</label>
+    <input type="text" id="battle_date" name="battle_date" /><br />
+    <label for="battle_size">战斗规模:</label>
+    <input type="text" id="battle_size" name="battle_size" /><br />
+    <input type="submit" value="开战！" name="submit" />
+  </form>
+</body>
+</html>
