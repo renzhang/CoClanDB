@@ -49,6 +49,8 @@ if ($id_query == 0) {
     while ($row_attack = mysqli_fetch_array($data_attack)) {
       if ($row_attack['win_star'] > $star_pos) {
         $star_pos = $row_attack['win_star'];
+      }
+      if ($row_attack['crush_rate'] > $crushrate_pos) {
         $crushrate_pos = $row_attack['crush_rate'];
       }
     }
@@ -61,10 +63,14 @@ if ($id_query == 0) {
                      " WHERE battle_id=" . $battle_id .
                      " AND ATTACK=0 AND defense_pos=" . $row_pos['attack_pos'];
     $data_defense  = mysqli_query($dbc, $query_defense);
+
     $star_pos = 0;
+    $crushrate_pos = 0.0;
     while ($row_defense = mysqli_fetch_array($data_defense)) {
       if ($row_defense['win_star'] > $star_pos) {
         $star_pos = $row_defense['win_star'];
+      }
+      if ($row_attack['crush_rate'] > $crushrate_pos) {
         $crushrate_pos = $row_defense['crush_rate'];
       }
     }
