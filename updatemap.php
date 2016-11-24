@@ -68,11 +68,12 @@ require_once('navmenu.php');
         // Update Opponent Info into table
         $query_opponentid = "SELECT opponent_clan_id FROM clan_battle_info WHERE battle_id=" . $battle_id;
         $data_opponentid = mysqli_query($dbc, $query_opponentid);
-        $row_opponentid = mysqli_fetch_array($dbc, $data_opponentid);
+        $row_opponentid = mysqli_fetch_array($data_opponentid);
+
         $query_update_opponent = "UPDATE `clan_opponent`" .
                                  " SET grade= " . $opponent_grade .
                                  " WHERE opponent_clan_id='". $row_opponentid['opponent_clan_id'] . "' AND opponent_user_id=" . $i;
-        $result_update_opponent = mysqli_query($dbc, $query_add_opponent);
+        $result_update_opponent = mysqli_query($dbc, $query_update_opponent);
 
         echo '<tr><td>' . $i . '</td>';
         echo '<td>' . $userid . '</td>';
