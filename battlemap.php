@@ -104,7 +104,7 @@ else {
 }
 
 if ($battle_id == 0) {
-  $query_battle = 'SELECT battle_id, battle_date , battle_size FROM `clan_battle_info` ORDER BY battle_date DESC LIMIT 1';
+  $query_battle = 'SELECT battle_id, battle_date , battle_size, opponent_clan_id FROM `clan_battle_info` ORDER BY battle_date DESC LIMIT 1';
 }
 else {
   $query_battle = 'SELECT battle_id, battle_date , battle_size FROM `clan_battle_info` WHERE battle_id=' . $battle_id;
@@ -115,6 +115,8 @@ $row_battle   = mysqli_fetch_array($data_battle);
 $battle_id   = $row_battle['battle_id'];
 $battle_date = $row_battle['battle_date'];
 $battle_size = $row_battle['battle_size'];
+$opponent_id = $row_battle['opponent_clan_id'];
+
 echo '<table>';
 echo '<tr><td>战时</td><td>对手</td></tr>';
 echo '<tr><td>' . $battle_date . '</td><td>' . $opponent_id . '</td></tr>';
