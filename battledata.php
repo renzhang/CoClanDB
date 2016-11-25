@@ -70,7 +70,7 @@ if ($id_query == 0) {
       if ($row_defense['win_star'] > $star_pos) {
         $star_pos = $row_defense['win_star'];
       }
-      if ($row_attack['crush_rate'] > $crushrate_pos) {
+      if ($row_defense['crush_rate'] > $crushrate_pos) {
         $crushrate_pos = $row_defense['crush_rate'];
       }
     }
