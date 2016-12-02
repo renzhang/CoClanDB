@@ -47,11 +47,14 @@ if ($id_query == 0) {
     $star_pos = 0;
     $crushrate_pos = 0.0;
     while ($row_attack = mysqli_fetch_array($data_attack)) {
-      if ($row_attack['win_star'] > $star_pos) {
+      if ( $row_attack['win_star'] > $star_pos ) {
         $star_pos = $row_attack['win_star'];
-      }
-      if ($row_attack['crush_rate'] > $crushrate_pos) {
         $crushrate_pos = $row_attack['crush_rate'];
+      }
+      elseif ($row_attack['win_star'] == $star_pos) {
+        if ($row_attack['crush_rate'] > $crushrate_pos) {
+          $crushrate_pos = $row_attack['crush_rate'];
+        }
       }
     }
     $star_attack += $star_pos;
@@ -69,9 +72,12 @@ if ($id_query == 0) {
     while ($row_defense = mysqli_fetch_array($data_defense)) {
       if ($row_defense['win_star'] > $star_pos) {
         $star_pos = $row_defense['win_star'];
-      }
-      if ($row_defense['crush_rate'] > $crushrate_pos) {
         $crushrate_pos = $row_defense['crush_rate'];
+      }
+      elseif ($row_defense['win_star'] == $star_pos) {
+        if ($row_defense['crush_rate'] > $crushrate_pos) {
+            $crushrate_pos = $row_defense['crush_rate'];
+        }
       }
     }
     $star_defense += $star_pos;
