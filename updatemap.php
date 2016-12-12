@@ -30,19 +30,10 @@ require_once('navmenu.php');
       $data_battle  = mysqli_query($dbc, $query_battle);
       $row_battle   = mysqli_fetch_array($data_battle);
       $battle_size = $row_battle['battle_size'];
-      echo $battle_size;
 
       for ($i=1; $i<=$battle_size; $i++) {
         $userid = $_POST['Pos'. $i];
-        if ($userid != 0) {
-          $query_user = "SELECT grade FROM `clan_user_grade` WHERE user_id=" . $userid;
-          $data_user = mysqli_query($dbc, $query_user);
-          $row_user = mysqli_fetch_array($data_user);
-          $user_grade = $row_user['grade'];
-        }
-        else {
-          $user_grade = 0;
-        }
+        $user_grade = $_POST['PosGrade'. $i];
         $opponent_grade = $_POST['Opp'. $i];
 
         // Update Battle map for the player of position

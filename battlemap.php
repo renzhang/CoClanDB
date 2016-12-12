@@ -29,6 +29,9 @@ if (isset($_POST['opponent_id'])) {
   $row_battle_add = mysqli_fetch_array($data_battle_add);
   $battle_id = $row_battle_add['battle_id'];
 
+  // $query_map_postion = "SELECT attack_pos FROM clan_battle_map" .
+  //                      " WHERE battle_size=" . $battle_size
+
   // Insert empty position into battle map table
   for ($i=1; $i<=$battle_size; $i++) {
     // add opponent user info
@@ -128,7 +131,7 @@ echo '</table>';
 <body>
   <form method="post" action="updatemap.php">
     <table>
-    <tr><td>战位</td><td>成员</td><td>对手本位</td></tr>
+    <tr><td>战位</td><td>成员</td><td>本位</td><td>对手本位</td></tr>
     <?php
     $query_battle_map = "SELECT bm.fight_id, bm.attack_pos, bm.defense_pos, bf.win_star, bf.crush_rate".
                         " FROM `clan_battle_map` AS bm" .
@@ -142,7 +145,7 @@ echo '</table>';
       $i ++;
         // Grab the clan user data from the database
       mysqli_set_charset($dbc, 'utf8');
-      $query_user = "SELECT ui.user_id, ui.user_name" .
+      $query_user = "SELECT ui.user_id, ui.user_name, ug.grade" .
                     " FROM `clan_user_info` AS ui" .
                     " INNER JOIN `clan_user_grade` AS ug USING (user_id)";
       if ($new_battle) {
@@ -153,6 +156,7 @@ echo '</table>';
       $fighter = '';
       while ($row_user = mysqli_fetch_array($data_user)) {
         if ($row_user['user_id'] == $row_battle_map['attack_pos']){
+          $pos_grade = $row_user['grade'];
           $fighter .=  '<option selected="selected" value = "' .  $row_user['user_id'] . '">' . $row_user['user_name'] . '</option>';
         }
         else {
@@ -160,6 +164,16 @@ echo '</table>';
         }
       }
       $fighter .=  '<option value="0">新人</option>';
+
+      $user_grade = '';
+      for ($grade=11; $grade>=5; $grade--){
+        if ($grade == $pos_grade) {
+          $user_grade .= '<option selected="selected" value = "' .  $grade . '">' . $grade . '本</option>';
+        }
+        else {
+          $user_grade .= '<option value="' .  $grade . '">' . $grade . '本</option>';
+        }
+      }
 
       $query_grade = "SELECT grade FROM clan_opponent AS co" .
       " INNER JOIN clan_battle_info AS bi USING (opponent_clan_id)" .
@@ -184,6 +198,10 @@ echo '</table>';
       echo '<td>';
       echo '<select id="Pos' . $i . '" name="Pos' . $i . '">';
       echo $fighter;
+      echo '</select>';
+      echo '</td><td>';
+      echo '<select id="PosGrade' . $i . '" name="PosGrade' . $i . '">';
+      echo $user_grade;
       echo '</select>';
       echo '</td><td>';
       echo '<select id="Opp' . $i . '" name="Opp' . $i . '">';
