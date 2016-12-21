@@ -33,29 +33,23 @@ while ($row_battle_fight = mysqli_fetch_array($data_battle_fight)) {
   $crush = $_POST["$text_crush_id"] / 100;
 
   if ($attack) {
-    $query_opponent_grade = "SELECT grade FROM `clan_opponent`" .
-                            " WHERE opponent_clan_id='" . $opponent_clan_id . "' AND opponent_user_id=" . $opponent;
+    $query_defense_grade = "SELECT grade FROM `clan_opponent`" .
+                           " WHERE opponent_clan_id='" . $opponent_clan_id . "' AND opponent_user_id=" . $opponent;
   }
   else {
-    $query_opponent_grade = "SELECT grade FROM `clan_user_grade`" .
-                            " WHERE user_id=" . $opponent;
+    $query_defense_grade = "SELECT grade FROM `clan_user_grade`" .
+                           " WHERE user_id=" . $opponent;
   }
-  $data_opponent_grade = mysqli_query($dbc, $query_opponent_grade);
-  $row_opponent_grade = mysqli_fetch_array($data_opponent_grade);
-  $opponent_grade = $row_opponent_grade['grade'];
+  $data_defense_grade = mysqli_query($dbc, $query_defense_grade);
+  $row_defense_grade = mysqli_fetch_array($data_defense_grade);
+  $defense_grade = $row_defense_grade['grade'];
 
   if ($opponent != 0) {
-    if ($attack == 1) {
-      $query_update_map = "UPDATE `clan_battle_map` SET defense_pos=" . $opponent .
-                          " , defense_grade=" . $opponent_grade .
-                          " WHERE fight_id=" . $fight_id;
-    }
-    else {
-      $query_update_map = "UPDATE `clan_battle_map` SET defense_pos=" . $opponent .
-                          " , attack_grade=" . $opponent_grade .
-                          " WHERE fight_id=" . $fight_id;
-    }
+    $query_update_map = "UPDATE `clan_battle_map` SET defense_pos=" . $opponent .
+                        " , defense_grade=" . $defense_grade .
+                        " WHERE fight_id=" . $fight_id;
     $result_update_map = mysqli_query($dbc, $query_update_map);
+    echo $query_update_map . ':' . $result_update_map . '<br>';
     $result = $result && $result_update_map;
     $query_update_fight = "UPDATE `clan_battle_fight` SET win_star=" . $star .
       " WHERE fight_id=" . $fight_id;

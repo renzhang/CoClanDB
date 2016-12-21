@@ -36,7 +36,12 @@ require_once('navmenu.php');
         $user_grade = $_POST['PosGrade'. $i];
         $opponent_grade = $_POST['Opp'. $i];
 
-        // Update Battle map for the player of position
+        // Update user grade for the player of position
+        $query_gradeupdate = "UPDATE clan_user_grade SET grade=" . $user_grade .
+                             " WHERE user_id=" . $userid;
+        $result_gradeupdate = mysqli_query($dbc, $query_gradeupdate);
+
+        // Update Battle map for the attack position of clan player
         $query_fightid = "SELECT fight_id FROM `clan_battle_map`" .
                          " WHERE battle_id=" . $battle_id .
                          " AND attack=1 LIMIT " . (($i-1)*2) . ", 1";
@@ -65,6 +70,19 @@ require_once('navmenu.php');
                                  " SET grade= " . $opponent_grade .
                                  " WHERE opponent_clan_id='". $row_opponentid['opponent_clan_id'] . "' AND opponent_user_id=" . $i;
         $result_update_opponent = mysqli_query($dbc, $query_update_opponent);
+
+        $update_fightid++;
+        // Update Battle map for the attack position of the enemy player
+        $query_updatemap = "UPDATE `clan_battle_map`" .
+                           " SET attack_grade=" . $opponent_grade .
+                           " WHERE fight_id=" . $update_fightid;
+        $result_updatemap = mysqli_query($dbc, $query_updatemap);
+
+        $update_fightid++;
+        $query_updatemap = "UPDATE `clan_battle_map`" .
+                           " SET attack_grade=" . $opponent_grade .
+                           " WHERE fight_id=" . $update_fightid;
+        $result_updatemap = mysqli_query($dbc, $query_updatemap);
 
         echo '<tr><td>' . $i . '</td>';
         echo '<td>' . $userid . '</td>';
