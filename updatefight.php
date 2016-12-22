@@ -49,7 +49,7 @@ while ($row_battle_fight = mysqli_fetch_array($data_battle_fight)) {
                         " , defense_grade=" . $defense_grade .
                         " WHERE fight_id=" . $fight_id;
     $result_update_map = mysqli_query($dbc, $query_update_map);
-    echo $query_update_map . ':' . $result_update_map . '<br>';
+
     $result = $result && $result_update_map;
     $query_update_fight = "UPDATE `clan_battle_fight` SET win_star=" . $star .
       " WHERE fight_id=" . $fight_id;
